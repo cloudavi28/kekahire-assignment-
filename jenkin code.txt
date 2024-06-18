@@ -1,0 +1,25 @@
+   - #jenkin code 
+
+   groovy
+   pipeline {
+       agent any
+
+       stages {
+           stage('Build') {
+               steps {
+                   sh 'docker build -t your-image-name .'
+               }
+           }
+           stage('Push') {
+               steps {
+                   sh 'docker tag your-image-name:latest your-aws-account-id.dkr.ecr.your-region.amazonaws.com/your-repository-name:latest'
+                   sh 'docker push your-aws-account-id.dkr.ecr.your-region.amazonaws.com/your-repository-name:latest'
+               }
+           }
+           stage('Deploy') {
+               steps {
+                   // Add your deployment steps here
+               }
+           }
+       }
+   }
